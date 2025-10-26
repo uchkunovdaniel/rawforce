@@ -1,0 +1,76 @@
+@import 'tailwindcss';
+@plugin '@tailwindcss/typography';
+@tailwind utilities;
+
+
+@layer utilities {
+    .text-oswald {
+        font-family: 'Oswald', sans-serif;
+        color: var(--white);
+    }
+    .text-oswald-p {
+        font-family: 'Oswald', sans-serif;
+        color: var(--dark-pink);
+    }
+    .text-oswald-b {
+        font-family: 'Oswald', sans-serif;
+        color: var(--black);
+    }
+    .text-oswald-lp {
+        font-family: 'Oswald', sans-serif;
+        color: var(--pink);
+    }
+    .text-oswald-r {
+        font-family: 'Oswald', sans-serif;
+        @apply text-red-400
+    }
+    .heading {
+        font-size: clamp(1.8rem, calc(8vw + 1rem), 6rem);
+    }
+    .paragraph {
+        font-size: clamp(.1rem, calc(.5vw + 1rem), 2rem);
+        /*line-height: 130%;*/
+    }
+    .heading2 {
+        font-size: clamp(1rem, calc(5vw + 1rem), 3rem);
+    }
+    .section {
+        @apply items-center flex flex-col h-[80vh] justify-center md:mt-[-15rem] max-sm:mt-[-15rem] sm:mt-[-20rem] lg:mt-0
+    }
+    .main {
+        @apply items-center flex flex-col h-[80vh] justify-center md:mt-[-10rem] lg:mt-0
+    }
+    .clip {
+        clip-path: inset(0);
+    }
+    .adv-item {
+        @apply bg-(--pink) py-2 px-[9vw] rounded-xl text-center
+    }
+    .radio{
+        appearance: none;
+        cursor: pointer;
+        background-color: var(--white);
+        border-radius: 50%;
+    }
+    .radio:checked, .radio:active {
+        background-color: var(--pink);
+        outline: .3rem solid var(--white);
+        outline-offset: -.3rem;
+    }
+
+    .selected::after {
+        content: "";
+        border-radius: 1rem;
+        background-color: var(--pink);
+        width: 5rem;
+        height: .3rem;
+        display: block;
+        margin: auto;
+    }
+
+    .confirmPos{
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+    }
+}
