@@ -3,7 +3,7 @@ import {redirect} from "@sveltejs/kit";
 export const load = async ({params, locals}) => {
     const products: Product[] = await locals.pb.collection("products").getFullList();
 		const box: Product = products.find(p => p.name === "Кутия с 5 вкуса барчета")!
-		if(box.id === params.slug) {
+		if(box && box.id === params.slug) {
 			box.image = locals.pb.files.getURL(box, box.image);
 			return { box, type: 'box' };
 		}

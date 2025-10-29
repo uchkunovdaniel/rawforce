@@ -6,6 +6,7 @@
 		import ProductCard from '$lib/components/ProductCard.svelte';
 		import {enhance} from '$app/forms';
 		import ConfirmDelete from '$lib/components/ConfirmDelete.svelte';
+		import { onMount } from 'svelte';
 
 		let confirmDelete = $state(false);
 
@@ -17,6 +18,17 @@
             body: new FormData()
         }).then(() => {window.location.href = '/'})
     }
+
+		function deleteProduct(id: string){
+				const formData = new FormData()
+				formData.append('productId', id)
+				fetch('?/removeProduct', {
+					method: "POST",
+					headers: {'x-sveltekit-action': true },
+					body: formData
+				}
+				).then(() => { invalidateAll();confirmDelete = false })
+		}
 
 		let page: string = $state("orders")
 
@@ -82,6 +94,27 @@
 				})
 			})
 		}
+
+		onMount(() => {
+			window.scrollTo(0, 0)
+		})
+
+		function editProduct(product: Product){
+			const form = document.querySelector('#edit') as HTMLFormElement
+			const formData = new FormData(form)
+			fetch('?/editProduct', {
+				method: "POST",
+				headers: {'x-sveltekit-action': true},
+				body: formData
+			}).then(
+				() => {
+					toast.success("Продуктът е редактиран", {iconTheme: {primary: "var(--pink)", secondary: "var(--white)"}});
+					page="orders";
+					invalidateAll();
+				}
+			)
+		}
+
 </script>
 
 <Toaster />
@@ -140,6 +173,7 @@
 						<p class="text-2xl max-lg:text-xl max-md:text-sm text-oswald-b">гр. {order.expand.user? order.expand.user.city : order.guest.city}</p>
 						<p class="text-2xl max-lg:text-xl max-md:text-sm text-oswald-b">обл. {order.expand.user? order.expand.user.state : order.guest.state}</p>
 						<p class="text-2xl max-lg:text-xl max-md:text-sm text-oswald-b">тел. {order.expand.user? order.expand.user.phone : order.guest.phone}</p>
+						<p class="text-2xl max-lg:text-xl max-md:text-sm text-oswald-b">куриер: {order.shipping_type}</p>
 					</section>
 					{#if !order.shipped}
 						<section class="flex w-full items-center justify-evenly">
@@ -195,16 +229,16 @@
 					<ProductCard product={product} onclick={() => {page = "editProduct"; tempProduct=product}} text="Редактирай" />
 				{/each}
 				<article class="bg-pink-50 min-lg:col-span-3 h-64 md:col-span-2 rounded-xl flex max-md:flex-col max-md:max-w-64 items-center justify-around p-10">
-					<!--        <img src={cookies} alt="cookies" class="w-96 md:w-72"/>-->
+					<img src={data.box.image} alt="cookies" class="w-70 h-60 max-md:w-30 max-md:h-40"/>
 					<section class="flex flex-col items-center justify-center gap-4 z-50">
-						<h3 class="text-oswald paragraph" style="color: var(--black)">Кутия с 6 вкуса барчета</h3>
-						<BuyButton onclick={() => {console.log('ok')}}>Купи</BuyButton>
+						<h3 class="text-oswald paragraph" style="color: var(--black)">{data.box.name}</h3>
+						<BuyButton onclick={() => {page = "editProduct"; tempProduct=data.box}}>Редактирай</BuyButton>
 					</section>
 				</article>
 			</section>
 		</main>
 		{:else if page === "editProduct"}
-		<form enctype="multipart/form-data" use:enhance onsubmit={() => {toast.success("Продуктът е редактиран", {iconTheme: {primary: "var(--pink)", secondary: "var(--white)"}}); page="orders"}} action="?/editProduct" method="post" class="flex items-center justify-start gap-10">
+		<form enctype="multipart/form-data" id="edit" use:enhance onsubmit={() => editProduct(tempProduct)} class="flex items-center justify-start gap-10">
 			<input class="hidden" name="id" value={tempProduct.id}/>
 			<fieldset>
 				<button type="button" id="upload" onclick={upload} class="max-lg:w-64 max-lg:h-64 w-120 h-120 text-2xl font-light border-0 rounded-xl px-2 text-oswald-b bg-(--white) focus:outline-1 focus:border-0 outline-(--pink) flex flex-col justify-center items-center"><img src={tempProduct.image} alt=""></button>
@@ -221,20 +255,20 @@
 				</fieldset>
 				<fieldset>
 					<label for="price" class="text-oswald-b block font-normal">Цена на продукта</label>
-					<input name="price" id="price" value={tempProduct.price} type="number" min="0" required class="w-64 h-8 font-light bg-(--white) border-b-gray-500 border-0 rounded px-2 text-oswald-b focus:outline-1 focus:border-0 outline-(--pink)">
+					<input name="price" id="price" value={tempProduct.price} type="text" inputmode="decimal" min="0" required class="w-64 h-8 font-light bg-(--white) border-b-gray-500 border-0 rounded px-2 text-oswald-b focus:outline-1 focus:border-0 outline-(--pink)">
 				</fieldset>
 				<fieldset>
 					<label for="ingridients" class="text-oswald-b block font-normal">Състав на продукта</label>
-					<textarea name="ingridients" id="ingridients" value={tempProduct.ingridients} required class="w-64 h-16 resize-none font-light bg-(--white) border-b-gray-500 border-0 rounded p-2 text-oswald-b focus:outline-1 focus:border-0 outline-(--pink)"></textarea>
+					<textarea name="ingridients" id="ingridients" value={tempProduct.ingridients} class="w-64 h-16 resize-none font-light bg-(--white) border-b-gray-500 border-0 rounded p-2 text-oswald-b focus:outline-1 focus:border-0 outline-(--pink)"></textarea>
 				</fieldset>
 				<section class="flex gap-2 items-center justify-evenly">
 					<fieldset>
 						<label for="kcal" class="text-oswald-b block font-normal">Калории</label>
-						<input name="kcal" id="kcal" min="0" type="number" value={tempProduct.kcal} required class="w-31 h-8 font-light bg-(--white) border-b-gray-500 border-0 rounded px-2 text-oswald-b focus:outline-1 focus:border-0 outline-(--pink)">
+						<input name="kcal" id="kcal" min="0" type="number" value={tempProduct.kcal} class="w-31 h-8 font-light bg-(--white) border-b-gray-500 border-0 rounded px-2 text-oswald-b focus:outline-1 focus:border-0 outline-(--pink)">
 					</fieldset>
 					<fieldset>
 						<label for="mass" class="text-oswald-b block font-normal">Грамаж</label>
-						<input name="mass" id="mass" min="0" type="number" value={tempProduct.mass} required class="w-31 h-8 font-light bg-(--white) border-b-gray-500 border-0 rounded px-2 text-oswald-b focus:outline-1 focus:border-0 outline-(--pink)">
+						<input name="mass" id="mass" min="0" type="number" value={tempProduct.mass} class="w-31 h-8 font-light bg-(--white) border-b-gray-500 border-0 rounded px-2 text-oswald-b focus:outline-1 focus:border-0 outline-(--pink)">
 					</fieldset>
 				</section>
 				<input class="hidden" name="quantity" value="1">
@@ -246,16 +280,19 @@
 			<section class="grid lg:grid-cols-2 max-md:grid-cols-1 md:grid-cols-2 content-center gap-x-6 gap-y-16">
 				{#each data.products as product (product.id)}
 					<ProductCard product={product} onclick={() => confirmDelete = true} text="Премахни" />
+					{#if confirmDelete}
+						<ConfirmDelete onclickCancel={() => confirmDelete = false} onclickConfirm={() => deleteProduct(product.id)} />
+					{/if}
 				{/each}
-				{#if confirmDelete}
-					<ConfirmDelete onclickCancel={() => confirmDelete = false} onclickConfirm={() =>{confirmDelete = false}} />
-				{/if}
 				<article class="bg-pink-50 min-lg:col-span-3 h-64 md:col-span-2 rounded-xl flex max-md:flex-col max-md:max-w-64 items-center justify-around p-10">
-					<!--        <img src={cookies} alt="cookies" class="w-96 md:w-72"/>-->
+					<img src={data.box.image} alt="cookies" class="w-70 h-60 max-md:w-30 max-md:h-40"/>
 					<section class="flex flex-col items-center justify-center gap-4 z-50">
-						<h3 class="text-oswald paragraph" style="color: var(--black)">Кутия с 6 вкуса барчета</h3>
-						<BuyButton onclick={() => {console.log('ok')}}>Купи</BuyButton>
+						<h3 class="text-oswald paragraph" style="color: var(--black)">{data.box.name}</h3>
+						<BuyButton onclick={() => confirmDelete = true}>Купи</BuyButton>
 					</section>
+					{#if confirmDelete}
+						<ConfirmDelete onclickCancel={() => confirmDelete = false} onclickConfirm={() => deleteProduct(data.box.id)} />
+					{/if}
 				</article>
 			</section>
 		</main>

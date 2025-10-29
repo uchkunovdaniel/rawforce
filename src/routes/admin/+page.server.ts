@@ -16,5 +16,9 @@ export const actions = {
 		const product = await locals.pb.collection('products').getOne(data.get("id") as string);
 		if ((data.get("image") as File).size === 0) data.append("image", product.image);
 		await locals.pb.collection('products').update(data.get("id") as string, data)
+	},
+	removeProduct: async ({ request, locals }) => {
+		const data = await request.formData();
+		await locals.pb.collection('products').delete(data.get("productId") as string);
 	}
 };

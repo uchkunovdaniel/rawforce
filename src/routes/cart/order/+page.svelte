@@ -44,6 +44,7 @@
 					const phone = tempFormData.get('phone') as string;
 					const city = tempFormData.get('city') as string;
 					const zip = tempFormData.get('zip') as string;
+					const state = tempFormData.get('state') as string;
 					if (name === "" || surname === "" || email === "" || phone === "" || city === "" || zip === "") {
 						toast.error("Моля попълнете всички полета", {
 							position: "top-right",

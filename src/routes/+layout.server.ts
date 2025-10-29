@@ -4,13 +4,16 @@ export const load = async ({locals, request}) => {
 		const allOrders = await locals.pb.collection("orders").getFullList({expand: 'user'})
 		const reviews = await locals.pb.collection("reviews").getFullList({sort: '@random'})
 		const products: Product[] = await locals.pb.collection('products').getFullList();
-		const box: Product = products.find(p => p.name === "Кутия с 5 вкуса барчета")!
+
+		const box: Product = products.find(p => p.name.includes("Кутия"))!
+
 		products.forEach(p => {
 			p.image = locals.pb.files.getURL(p, p.image)
 		})
-		products.forEach(p=> {
-			if(p.id === box.id) products.splice(products.indexOf(p), 1)
-		})
+		if (box)
+			products.forEach(p=> {
+				if(p.id === box.id) products.splice(products.indexOf(p), 1)
+			})
 		reviews.forEach(review => {
 			review.avatar = locals.pb.files.getURL(review, review.avatar)
 		})
