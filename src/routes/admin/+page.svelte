@@ -173,7 +173,7 @@
 						<p class="text-2xl max-lg:text-xl max-md:text-sm text-oswald-b">гр. {order.expand.user? order.expand.user.city : order.guest.city}</p>
 						<p class="text-2xl max-lg:text-xl max-md:text-sm text-oswald-b">обл. {order.expand.user? order.expand.user.state : order.guest.state}</p>
 						<p class="text-2xl max-lg:text-xl max-md:text-sm text-oswald-b">тел. {order.expand.user? order.expand.user.phone : order.guest.phone}</p>
-						<p class="text-2xl max-lg:text-xl max-md:text-sm text-oswald-b">куриер: {order.shipping_type}</p>
+<!--						<p class="text-2xl max-lg:text-xl max-md:text-sm text-oswald-b">куриер: {order.shipping_type}</p>-->
 						<p class="text-2xl max-lg:text-xl max-md:text-sm text-oswald-b">адрес: {order.address}</p>
 
 					</section>
@@ -183,12 +183,15 @@
 							<BuyButton onclick={() => approve(order.id)} tailwindClass="max-md:text-sm max-md:w-32">Потвърждаване изпращането</BuyButton>
 						</section>
 						{:else}
-						<p class="text-oswald-b bg-(--white) p-4 rounded-xl">Поръчката е потвърдена</p>
+						<section class="flex gap-4">
+							<p class="text-oswald-b bg-(--white) p-4 rounded-xl">Поръчката е потвърдена</p>
+							<button onclick={() => cancel(order.id)} class="text-oswald bg-(--black) p-4 rounded-xl">Изтриване на поръчка</button>
+						</section>
 					{/if}
 				</article>
 			{/each}
 	{:else if page === 'addProduct'}
-		<form enctype="multipart/form-data" onsubmit={() => {toast.success("Продуктът е добавен", {iconTheme: {primary: "var(--pink)", secondary: "var(--white)"}})}} action="?/addProduct" method="post" class="flex items-center justify-start gap-10">
+		<form enctype="multipart/form-data" onsubmit={() => {toast.success("Продуктът е добавен", {iconTheme: {primary: "var(--pink)", secondary: "var(--white)"}})}} action="?/addProduct" method="post" class="flex items-center justify-start gap-10 max-md:flex-col max-md:justify-center">
 			<fieldset>
 				<button type="button" id="upload" onclick={upload} class="max-lg:w-64 max-lg:h-64 w-120 h-120 text-2xl font-light border-0 rounded-xl px-2 text-oswald-b bg-(--white) focus:outline-1 focus:border-0 outline-(--pink) flex flex-col justify-center items-center"><span class="text-[10rem]">+</span><span>Избери файл</span></button>
 				<input name="image" accept="image/png, image/jpeg, image/webp" type="file" id="avatar" class="hidden" onchange={display}/>
@@ -240,7 +243,7 @@
 			</section>
 		</main>
 		{:else if page === "editProduct"}
-		<form enctype="multipart/form-data" id="edit" use:enhance onsubmit={() => editProduct(tempProduct)} class="flex items-center justify-start gap-10">
+		<form enctype="multipart/form-data" id="edit" use:enhance onsubmit={() => editProduct(tempProduct)} class="flex items-center justify-start gap-10 max-md:flex-col max-md:justify-center">
 			<input class="hidden" name="id" value={tempProduct.id}/>
 			<fieldset>
 				<button type="button" id="upload" onclick={upload} class="max-lg:w-64 max-lg:h-64 w-120 h-120 text-2xl font-light border-0 rounded-xl px-2 text-oswald-b bg-(--white) focus:outline-1 focus:border-0 outline-(--pink) flex flex-col justify-center items-center"><img src={tempProduct.image} alt=""></button>

@@ -10,7 +10,7 @@
 
 <main class="w-screen h-screen flex justify-center items-center gap-4 flex-col">
     <h1 class="text-oswald font-bold text-4xl">Поръчката ви се обработва!</h1>
-    <h2 class="text-oswald text-2xl">Очаквайте скоро!</h2>
+    <h2 class="text-oswald text-2xl">Ще се свържем с вас скоро!</h2>
     <div class="w-max h-max p-3 rounded-full" style="border: var(--white) .3rem solid">
         <img src="{done}" alt="done" class="w-12 h-12">
     </div>

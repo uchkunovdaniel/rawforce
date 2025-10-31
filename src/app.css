@@ -73,4 +73,8 @@
         top: 50%;
         transform: translate(-50%, -50%);
     }
+
+    .radial-gradient {
+        background: radial-gradient(50% 50% at 50% 50%, var(--pink) 0%, var(--white) 100%) no-repeat;
+    }
 }

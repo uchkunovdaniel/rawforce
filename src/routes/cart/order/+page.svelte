@@ -125,27 +125,29 @@
 						</fieldset>
 						<fieldset>
 								<label for="state">Област</label>
-								<input required type="text" id="state" name="state" class="w-48 max-md:w-40 rounded h-8 bg-(--pink) block focus:outline-1 px-2">
+								<input required type="text" id="state" value="Пловдив" disabled name="state" class="w-48 max-md:w-40 rounded h-8 bg-(--pink) block focus:outline-1 px-2">
 						</fieldset>
 					</section>
-					<section>
-						<fieldset class="flex items-center bg-(--pink) text-oswald-b rounded mt-6 p-2 gap-2 max-md:w-86">
-							<input onclick={() => getShipping('speedy')} type="radio" checked required id="speedy" class="w-5 h-5 radio" value="speedy" name="shipping_type">
-							<label for="speedy" class="flex justify-between w-full px-2 items-center"><span><img src={speedy} class="w-8 inline " alt="">Спиди - до автомат</span> <span>{data.shippingOptions.speedy} лв.</span></label>
-						</fieldset>
-						<fieldset class="flex items-center bg-(--pink) text-oswald-b rounded mt-6 p-2 gap-2 max-md:w-86">
-							<input onclick={() => getShipping('econtBox')} type="radio" required id="econtBox" class="w-5 h-5 radio" value="econtBox" name="shipping_type">
-							<label for="econtBox" class="flex justify-between w-full px-2 items-center"><span><img src={econt} class="w-16 inline mr-2" alt="">Еконт - до автомат</span> <span>{data.shippingOptions.econtBox} лв.</span></label>
-						</fieldset>
-						<fieldset class="flex items-center bg-(--pink) text-oswald-b rounded mt-6 p-2 gap-2 max-md:w-86">
-							<input onclick={() => getShipping('econtOffice')} type="radio" required id="econtOffice" class="w-5 h-5 radio" value="econtOffice" name="shipping_type">
-							<label for="econtOffice" class="flex justify-between w-full px-2 items-center"><span><img src={econt} class="w-16 inline mr-2" alt="">Еконт - до офис</span> <span>{data.shippingOptions.econtOffice} лв.</span></label>
-						</fieldset>
-					</section>
+					<h1 class="bg-(--pink) rounded text-balance text-oswald-b mt-10 text-center text-md">В момента поръчки се доставят само в област Пловдив.</h1>
+<!--					<section>-->
+<!--						<fieldset class="flex items-center bg-(&#45;&#45;pink) text-oswald-b rounded mt-6 p-2 gap-2 max-md:w-86">-->
+<!--							<input onclick={() => getShipping('speedy')} type="radio" checked required id="speedy" class="w-5 h-5 radio" value="speedy" name="shipping_type">-->
+<!--							<label for="speedy" class="flex justify-between w-full px-2 items-center"><span><img src={speedy} class="w-8 inline " alt="">Спиди - до автомат</span> <span>{data.shippingOptions.speedy} лв.</span></label>-->
+<!--						</fieldset>-->
+<!--						<fieldset class="flex items-center bg-(&#45;&#45;pink) text-oswald-b rounded mt-6 p-2 gap-2 max-md:w-86">-->
+<!--							<input onclick={() => getShipping('econtBox')} type="radio" required id="econtBox" class="w-5 h-5 radio" value="econtBox" name="shipping_type">-->
+<!--							<label for="econtBox" class="flex justify-between w-full px-2 items-center"><span><img src={econt} class="w-16 inline mr-2" alt="">Еконт - до автомат</span> <span>{data.shippingOptions.econtBox} лв.</span></label>-->
+<!--						</fieldset>-->
+<!--						<fieldset class="flex items-center bg-(&#45;&#45;pink) text-oswald-b rounded mt-6 p-2 gap-2 max-md:w-86">-->
+<!--							<input onclick={() => getShipping('econtOffice')} type="radio" required id="econtOffice" class="w-5 h-5 radio" value="econtOffice" name="shipping_type">-->
+<!--							<label for="econtOffice" class="flex justify-between w-full px-2 items-center"><span><img src={econt} class="w-16 inline mr-2" alt="">Еконт - до офис</span> <span>{data.shippingOptions.econtOffice} лв.</span></label>-->
+<!--						</fieldset>-->
+<!--					</section>-->
     </form>
     {:else}
          <form class="mb-10">
 					 <section class="text-oswald-b grid grid-cols-2 max-md:mb-0 gap-x-6 gap-y-4">
+						<input class="hidden" type="text" value="address" name="shipping_type">
 						<fieldset>
 								<label for="name">Име</label>
 								<input required disabled type="text" value="{data.user.name?? ''}" id="name" name="name" class="w-48 max-md:w-40 rounded h-8 bg-(--pink) block focus:outline-1 px-2">
@@ -168,67 +170,75 @@
 						</fieldset>
 						<fieldset>
 								<label for="state">Област</label>
-								<input oninput="{state = this.value}" required type="text" value="{data.user.state?? ''}" id="state" name="state" class="w-48 max-md:w-40 rounded h-8 bg-(--pink) block focus:outline-1 px-2">
+								<input oninput="{state = this.value}" required type="text" value="Пловдив" id="state" name="state" class="w-48 max-md:w-40 rounded h-8 bg-(--pink) block focus:outline-1 px-2">
 						</fieldset>
-					 </section>
-					 {#if state.toLowerCase() !== 'plovdiv' && state.toLowerCase() !== 'пловдив'}
-					 		<section>
-							 <fieldset class="flex items-center bg-(--pink) text-oswald-b rounded mt-6 p-2 gap-2 max-md:w-86">
-								 <input onclick={() => {getShipping('speedy'); selected = 'speedy'}} type="radio" checked required id="speedy" class="w-5 h-5 radio" value="speedy" name="shipping_type">
-								 <label for="speedy" class="flex justify-between w-full px-2 items-center"><span><img src={speedy} class="w-8 inline " alt="">Спиди - до автомат</span> <span>{data.shippingOptions.speedy} лв.</span></label>
-							 </fieldset>
-						 <div class="flex gap-6 {selected === 'speedy' ? '' : 'hidden'}">
-							 <fieldset>
-								 <label for="city">Улица</label>
-								 <input required type="text" id="street" name="street" class="w-48 max-md:w-40 rounded h-8 bg-(--pink) block focus:outline-1 px-2">
-							 </fieldset>
-							 <fieldset>
-								 <label for="city">Номер</label>
-								 <input required type="text" id="number" name="number" class="w-48 max-md:w-40 rounded h-8 bg-(--pink) block focus:outline-1 px-2">
-							 </fieldset>
-						 </div>
-						 <fieldset class="flex items-center bg-(--pink) text-oswald-b rounded mt-6 p-2 gap-2 max-md:w-86">
-						   <input onclick={() => {getShipping('econtBox'); selected = 'econtBox'}} type="radio" required id="econtBox" class="w-5 h-5 radio" value="econtBox" name="shipping_type">
-							 <label for="econtBox" class="flex justify-between w-full px-2 items-center"><span><img src={econt} class="w-16 inline mr-2" alt="">Еконт - до автомат</span> <span>{data.shippingOptions.econtBox} лв.</span></label>
+						 <fieldset>
+							 <label for="city">Улица</label>
+							 <input required type="text" id="street" name="street" class="w-48 max-md:w-40 rounded h-8 bg-(--pink) block focus:outline-1 px-2">
 						 </fieldset>
-						 <div class="flex gap-6 {selected === 'econtBox' ? '' : 'hidden'}">
-							 <fieldset>
-								 <label for="city">Улица</label>
-								 <input required type="text" id="street" name="street" class="w-48 max-md:w-40 rounded h-8 bg-(--pink) block focus:outline-1 px-2">
-							 </fieldset>
-							 <fieldset>
-								 <label for="city">Номер</label>
-								 <input required type="text" id="number" name="number" class="w-48 max-md:w-40 rounded h-8 bg-(--pink) block focus:outline-1 px-2">
-							 </fieldset>
-						 </div>
-						 <fieldset class="flex items-center bg-(--pink) text-oswald-b rounded mt-6 p-2 gap-2 max-md:w-86">
-							 <input onclick={() => {getShipping('econtOffice'); selected = 'econtOffice'}} type="radio" required id="econtOffice" class="w-5 h-5 radio" value="econtOffice" name="shipping_type">
-							 <label for="econtOffice" class="flex justify-between w-full px-2 items-center"><span><img src={econt} class="w-16 inline mr-2" alt="">Еконт - до офис</span> <span>{data.shippingOptions.econtOffice} лв.</span></label>
+						 <fieldset>
+							 <label for="city">Номер</label>
+							 <input required type="text" id="number" name="number" class="w-48 max-md:w-40 rounded h-8 bg-(--pink) block focus:outline-1 px-2">
 						 </fieldset>
-						 <div class="flex gap-6 {selected === 'econtOffice' ? '' : 'hidden'}">
-							 <fieldset>
-								 <label for="city">Улица</label>
-								 <input required type="text" id="street" name="street" class="w-48 max-md:w-40 rounded h-8 bg-(--pink) block focus:outline-1 px-2">
-							 </fieldset>
-							 <fieldset>
-								 <label for="city">Номер</label>
-								 <input required type="text" id="number" name="number" class="w-48 max-md:w-40 rounded h-8 bg-(--pink) block focus:outline-1 px-2">
-							 </fieldset>
-						 </div>
 					 </section>
-						 {:else}
-						 <div class="flex gap-6 mt-4 {selected === 'speedy' ? '' : 'hidden'}">
-							 <input type="hidden" name="shipping_type" value="address">
-							 <fieldset>
-								 <label for="city">Улица</label>
-								 <input required type="text" id="street" name="street" class="w-48 max-md:w-40 rounded h-8 bg-(--pink) block focus:outline-1 px-2">
-							 </fieldset>
-							 <fieldset>
-								 <label for="city">Номер</label>
-								 <input required type="text" inputmode="numeric" id="number" name="number" class="w-48 max-md:w-40 rounded h-8 bg-(--pink) block focus:outline-1 px-2 ">
-							 </fieldset>
-						 </div>
-					 {/if}
+					 <!--{#if state.toLowerCase() !== 'plovdiv' && state.toLowerCase() !== 'пловдив'}-->
+					 <!--		<section>-->
+						<!--	 <fieldset class="flex items-center bg-(&#45;&#45;pink) text-oswald-b rounded mt-6 p-2 gap-2 max-md:w-86">-->
+						<!--		 <input onclick={() => {getShipping('speedy'); selected = 'speedy'}} type="radio" checked required id="speedy" class="w-5 h-5 radio" value="speedy" name="shipping_type">-->
+						<!--		 <label for="speedy" class="flex justify-between w-full px-2 items-center"><span><img src={speedy} class="w-8 inline " alt="">Спиди - до автомат</span> <span>{data.shippingOptions.speedy} лв.</span></label>-->
+						<!--	 </fieldset>-->
+						<!-- <div class="flex gap-6 {selected === 'speedy' ? '' : 'hidden'}">-->
+						<!--	 <fieldset>-->
+						<!--		 <label for="city">Улица</label>-->
+						<!--		 <input required type="text" id="street" name="street" class="w-48 max-md:w-40 rounded h-8 bg-(&#45;&#45;pink) block focus:outline-1 px-2">-->
+						<!--	 </fieldset>-->
+						<!--	 <fieldset>-->
+						<!--		 <label for="city">Номер</label>-->
+						<!--		 <input required type="text" id="number" name="number" class="w-48 max-md:w-40 rounded h-8 bg-(&#45;&#45;pink) block focus:outline-1 px-2">-->
+						<!--	 </fieldset>-->
+						<!-- </div>-->
+						<!-- <fieldset class="flex items-center bg-(&#45;&#45;pink) text-oswald-b rounded mt-6 p-2 gap-2 max-md:w-86">-->
+						<!--   <input onclick={() => {getShipping('econtBox'); selected = 'econtBox'}} type="radio" required id="econtBox" class="w-5 h-5 radio" value="econtBox" name="shipping_type">-->
+						<!--	 <label for="econtBox" class="flex justify-between w-full px-2 items-center"><span><img src={econt} class="w-16 inline mr-2" alt="">Еконт - до автомат</span> <span>{data.shippingOptions.econtBox} лв.</span></label>-->
+						<!-- </fieldset>-->
+						<!-- <div class="flex gap-6 {selected === 'econtBox' ? '' : 'hidden'}">-->
+						<!--	 <fieldset>-->
+						<!--		 <label for="city">Улица</label>-->
+						<!--		 <input required type="text" id="street" name="street" class="w-48 max-md:w-40 rounded h-8 bg-(&#45;&#45;pink) block focus:outline-1 px-2">-->
+						<!--	 </fieldset>-->
+						<!--	 <fieldset>-->
+						<!--		 <label for="city">Номер</label>-->
+						<!--		 <input required type="text" id="number" name="number" class="w-48 max-md:w-40 rounded h-8 bg-(&#45;&#45;pink) block focus:outline-1 px-2">-->
+						<!--	 </fieldset>-->
+						<!-- </div>-->
+						<!-- <fieldset class="flex items-center bg-(&#45;&#45;pink) text-oswald-b rounded mt-6 p-2 gap-2 max-md:w-86">-->
+						<!--	 <input onclick={() => {getShipping('econtOffice'); selected = 'econtOffice'}} type="radio" required id="econtOffice" class="w-5 h-5 radio" value="econtOffice" name="shipping_type">-->
+						<!--	 <label for="econtOffice" class="flex justify-between w-full px-2 items-center"><span><img src={econt} class="w-16 inline mr-2" alt="">Еконт - до офис</span> <span>{data.shippingOptions.econtOffice} лв.</span></label>-->
+						<!-- </fieldset>-->
+						<!-- <div class="flex gap-6 {selected === 'econtOffice' ? '' : 'hidden'}">-->
+						<!--	 <fieldset>-->
+						<!--		 <label for="city">Улица</label>-->
+						<!--		 <input required type="text" id="street" name="street" class="w-48 max-md:w-40 rounded h-8 bg-(&#45;&#45;pink) block focus:outline-1 px-2">-->
+						<!--	 </fieldset>-->
+						<!--	 <fieldset>-->
+						<!--		 <label for="city">Номер</label>-->
+						<!--		 <input required type="text" id="number" name="number" class="w-48 max-md:w-40 rounded h-8 bg-(&#45;&#45;pink) block focus:outline-1 px-2">-->
+						<!--	 </fieldset>-->
+						<!-- </div>-->
+					 <!--</section>-->
+						<!-- {:else}-->
+<!--						 <div class="flex gap-6 mt-4 {selected === 'speedy' ? '' : 'hidden'}">-->
+<!--							 <input type="hidden" name="shipping_type" value="address">-->
+<!--							 <fieldset>-->
+<!--								 <label for="city">Улица</label>-->
+<!--								 <input required type="text" id="street" name="street" class="w-48 max-md:w-40 rounded h-8 bg-(&#45;&#45;pink) block focus:outline-1 px-2">-->
+<!--							 </fieldset>-->
+<!--							 <fieldset>-->
+<!--								 <label for="city">Номер</label>-->
+<!--								 <input required type="text" inputmode="numeric" id="number" name="number" class="w-48 max-md:w-40 rounded h-8 bg-(&#45;&#45;pink) block focus:outline-1 px-2 ">-->
+<!--							 </fieldset>-->
+<!--						 </div>-->
+					 <!--{/if}-->
     </form>
     {/if}
 		{#key $cart}

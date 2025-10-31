@@ -16,6 +16,7 @@
 <style>
 	:global(body) {
         user-select: none;
+				background-color: var(--white);
     }
     :global(html) {
         overscroll-behavior: none;
