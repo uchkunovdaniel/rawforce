@@ -70,7 +70,6 @@
     @media (min-width: 48rem) {
         :global(body) {
             background: radial-gradient(50% 50% at 50% 50%, var(--pink) 0%, var(--white) 100%) no-repeat;
-
             }
     }
     @media (max-width: 48rem) {

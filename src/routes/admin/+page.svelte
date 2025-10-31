@@ -174,6 +174,8 @@
 						<p class="text-2xl max-lg:text-xl max-md:text-sm text-oswald-b">обл. {order.expand.user? order.expand.user.state : order.guest.state}</p>
 						<p class="text-2xl max-lg:text-xl max-md:text-sm text-oswald-b">тел. {order.expand.user? order.expand.user.phone : order.guest.phone}</p>
 						<p class="text-2xl max-lg:text-xl max-md:text-sm text-oswald-b">куриер: {order.shipping_type}</p>
+						<p class="text-2xl max-lg:text-xl max-md:text-sm text-oswald-b">адрес: {order.address}</p>
+
 					</section>
 					{#if !order.shipped}
 						<section class="flex w-full items-center justify-evenly">
