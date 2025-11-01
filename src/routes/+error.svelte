@@ -1,6 +1,6 @@
 <script>
     import MainButton from "$lib/components/MainButton.svelte";
-    import cookie from "$lib/assets/cookie.png"
+    import cookie from "$lib/assets/cookie.webp"
 </script>
 
 

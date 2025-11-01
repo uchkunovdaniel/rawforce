@@ -1,5 +1,5 @@
 <script>
-    import creators from '$lib/assets/creators.png'
+    import creators from '$lib/assets/creators.webp'
     import Navbar from "$lib/components/Navbar.svelte";
 
     let {data} = $props()

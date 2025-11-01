@@ -2,7 +2,7 @@
     import BuyButton from "$lib/components/BuyButton.svelte";
     import logo from "$lib/assets/logo.svg";
     import PasswordInput from "$lib/components/PasswordInput.svelte";
-    import register_decorations from "$lib/assets/register-decorations.png"
+    import register_decorations from "$lib/assets/register-decorations.webp"
 
     let fail = $state(false);
 
