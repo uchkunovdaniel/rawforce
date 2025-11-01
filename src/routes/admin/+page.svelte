@@ -126,7 +126,7 @@
 				<li><button onclick={() => page = "orders"}        class="bg-(--white) max-md:text-sm max-md:min-w-36 px-3 min-h-12 rounded-xl max-lg:min-w-20 min-w-40 text-oswald-b max-lg:text-md text-xl {page === 'orders'? 'selected' : ''}">Всички Поръчки</button></li>
 				<li><button onclick={() => page = "addProduct"}    class="bg-(--white) max-md:text-sm max-md:min-w-36 px-3 min-h-12 rounded-xl max-lg:min-w-20 min-w-40 text-oswald-b max-lg:text-md text-xl {page === 'addProduct'? 'selected' : ''}">Добави продукт</button></li>
 				<li><button onclick={() => page = "editProducts"}   class="bg-(--white) max-md:text-sm max-md:min-w-36 px-3 min-h-12 rounded-xl max-lg:min-w-20 min-w-40 text-oswald-b max-lg:text-md text-xl {page === 'editProducts'? 'selected' : ''}">Редактирай продукт</button></li>
-				<li><button onclick={() => page = "removeProducts"} class="bg-(--white) max-md:text-sm max-md:min-w-36 px-3 min-h-12 rounded-xl max-lg:min-w-20 min-w-40 text-oswald-b max-lg:text-md text-xl {page === 'removeProduct'? 'selected' : ''}">Изтрий продукт</button></li>
+				<li><button onclick={() => page = "removeProducts"} class="bg-(--white) max-md:text-sm max-md:min-w-36 px-3 min-h-12 rounded-xl max-lg:min-w-20 min-w-40 text-oswald-b max-lg:text-md text-xl {page === 'removeProducts'? 'selected' : ''}">Изтрий продукт</button></li>
 			</ul>
 		<button onclick={logout} class="bg-(--white) rounded-xl p-4 text-oswald-b font-light">Изход</button>
 	</nav>
@@ -234,7 +234,7 @@
 						{#each data.products as product (product.id)}
 							<ProductCard product={product} onclick={() => {page = "editProduct"; tempProduct=product}} text="Редактирай" />
 						{/each}
-						<article class="bg-pink-50 min-lg:col-span-3 h-64 md:col-span-2 rounded-xl flex max-md:flex-col max-md:max-w-64 items-center justify-around p-10">
+						<article class="bg-pink-100 min-lg:col-span-3 h-64 md:col-span-2 rounded-xl flex max-md:flex-col max-md:h-80 max-md:max-w-64 items-center justify-around p-10">
 							<img src={data.box.image} alt="cookies" class="w-70 h-60 max-md:w-30 max-md:h-40"/>
 							<section class="flex flex-col items-center justify-center gap-4 z-50">
 								<h3 class="text-oswald paragraph" style="color: var(--black)">{data.box.name}</h3>

@@ -59,7 +59,7 @@
         </fieldset>
         <BuyButton tailwindClass="mt-2 w-64">Вход</BuyButton>
     </form>
-    <section class="flex justify-end w-64 mx-auto text-oswald-b font-light text-sm mt-2">
+    <section class="flex justify-end w-64 mx-auto text-oswald-b font-light text-sm mt-2 {superuser? 'hidden' : ''}">
 			<button onclick={() => window.location.href = '/register'}>Създай профил</button>
 		</section>
     {#if fail}
