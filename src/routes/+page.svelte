@@ -26,7 +26,7 @@
     <p class="text-oswald paragraph text-center font-normal z-10">Барче с комбинация от натурални съставки и енергия <br> за активния ти ден. Чисто, вкусно и винаги на една ръка разстояние.</p>
     <MainButton margin="4rem" onclick={() => {window.location.href = 'products'}}>Купи сега</MainButton>
     <img src={bars} height="1411" width="1920" alt="bars" class="absolute mt-100 z-0 max-sm:hidden"/>
-    <img src={blueberries} height="3114" width="1885" alt="blueberries" class="absolute lg:mt-490 md:mt-280 sm:mt-230 max-sm:hidden z-0"/>
+    <img src={blueberries} height="3114" width="1885" alt="blueberries" fetchpriority="high" class="absolute lg:mt-490 md:mt-280 sm:mt-230 max-sm:hidden z-0"/>
 </main>
 <section class="section">
     <h2 class="text-oswald font-semibold heading2 mb-10">Нашите барчета</h2>
